@@ -15,7 +15,7 @@ class Certificate:
         self.content = []
         self.type = type
 
-    def add_item(self, path, x, y, scale_x=1, scale_y=1, alpha=0, angle=0):
+    def add_item(self, path, x, y, scale_x=1, scale_y=1, alpha=255, angle=0):
         item = Image.open(path)
         item.putalpha(alpha)
         item = item.rotate(angle, expand=True)
@@ -40,4 +40,5 @@ class Certificate:
             length = font.getlength(line[0])
             y += (font.getbbox(line[0])[3] - font.getbbox(line[0])[1]) + 50
             draw.text(((self.width - length) // 2, y), line[0], fill=(0, 0, 0), font=font)
+        certificate = certificate.convert('RGB')
         certificate.save(path)
