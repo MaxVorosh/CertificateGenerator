@@ -10,7 +10,7 @@ class Certificate:
         self.width = width
         self.height = height
         self.owner = owner
-        self.bg = (255, 255, 255)
+        self.bg = None
         self.nomination = ''
         self.content = []
         self.type = type
@@ -25,11 +25,13 @@ class Certificate:
     def set_nomination(self, text):
         self.nomination = text
 
-    def set_bg(self, colour):
-        self.bg = colour
+    def set_bg(self, path):
+        self.bg = Image.open(path)
+        self.bg = self.bg.resize((self.width, self.height))
 
     def save(self, path):
-        certificate = Image.new('RGBA', (self.width, self.height), self.bg)
+        certificate = Image.new('RGBA', (self.width, self.height), 'White')
+        certificate.paste(self.bg, (0, 0))
         for item in self.content:
             certificate.paste(item[0], item[1], item[0])
         draw = ImageDraw.Draw(certificate)
