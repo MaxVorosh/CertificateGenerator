@@ -34,7 +34,8 @@ class Certificate:
         for item in self.content:
             certificate.paste(item[0], item[1], item[0])
         draw = ImageDraw.Draw(certificate)
-        text = [(self.type, 140), (self.nomination, 100), (self.owner, 100)]
+        nom = list(map(lambda x: (x, 100), [''] + self.nomination.split('\n') + ['']))
+        text = [(self.type, 140)] + nom + [(self.owner, 100)]
         y = 240
         for line in text:
             font = ImageFont.truetype(os.path.join('font', 'font.ttf'), size=line[1])
